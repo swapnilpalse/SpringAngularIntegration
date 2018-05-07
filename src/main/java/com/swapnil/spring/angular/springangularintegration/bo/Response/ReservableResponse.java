@@ -1,15 +1,15 @@
 package com.swapnil.spring.angular.springangularintegration.bo.Response;
 
-public class ReservationResponse {
+public class ReservableResponse {
 private Long id;
 private Integer roomNumber;
 private Integer price;
 private Links links;
 
-public ReservationResponse() {
+public ReservableResponse() {
 	super();
 }
-public ReservationResponse(Integer roomNumber, Integer price) {
+public ReservableResponse(Integer roomNumber, Integer price) {
 	super();
 	this.roomNumber = roomNumber;
 	this.price = price;
