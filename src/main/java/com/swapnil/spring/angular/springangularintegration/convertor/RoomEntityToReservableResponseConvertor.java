@@ -20,6 +20,7 @@ public class RoomEntityToReservableResponseConvertor implements Converter<RoomEn
 		self.setRef(ResourceConstants.ROOM_RESERVATION_V1+"/"+source.getId());
 		links.setSelf(self);
 		rr.setLinks(links);
+		rr.setId(source.getId());
 		return rr;
 	}
 

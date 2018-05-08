@@ -9,6 +9,9 @@ import org.springframework.context.support.ConversionServiceFactoryBean;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.converter.Converter;
 
+import com.swapnil.spring.angular.springangularintegration.bo.Response.ReservationRequest;
+import com.swapnil.spring.angular.springangularintegration.convertor.ReservationEntityReservationResponse;
+import com.swapnil.spring.angular.springangularintegration.convertor.ReservationRequestToREservationEntityConvertor;
 import com.swapnil.spring.angular.springangularintegration.convertor.RoomEntityToReservableResponseConvertor;
 
 @Configuration
@@ -16,6 +19,9 @@ public class ConversionConfig {
 private Set<Converter> getConverters(){
 	Set<Converter> converters=new HashSet<Converter>();
 	converters.add(new RoomEntityToReservableResponseConvertor());
+	converters.add(new ReservationRequestToREservationEntityConvertor());
+	converters.add(new ReservationEntityReservationResponse());
+	
 	return converters;
 }
 @Bean

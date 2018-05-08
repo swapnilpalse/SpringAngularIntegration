@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import {HttpClient,Response} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
+
+
 
 @Component({
   selector: 'app-root',
@@ -8,6 +12,9 @@ import { FormControl, FormGroup } from '@angular/forms';
   '../../node_modules/bootstrap/dist/css/bootstrap.css']
 })
 export class AppComponent implements OnInit {
+  constructor(private http:HttpClient){
+      } 
+  private baseUrl:string   = 'http://localhost:8080';    
   public submitted:boolean;      
   roomsearch:FormGroup;
   rooms:Room[];  
@@ -17,13 +24,26 @@ export class AppComponent implements OnInit {
            checkout:new FormControl('')   
        });
        
-       this.rooms=ROOMS;
    }
     onSubmit({value,valid}: {value:Roomsearch, valid:boolean}){
+     this.getAll().subscribe(rooms=>this.rooms=rooms,
+     err=>{
+         console.log(err);
+        }
+     );
+    }
+    reserveRoom(value:string){
      console.log(value);   
     }
     
+    getAll():Observable<Room[]>{
+      return this.http.get(this.baseUrl+'/room/reservation/v1?checkin=2017-03-01&checkout=2017-03-08').map(this.mapRoom);
+          
+    }
     
+    mapRoom(response:Response):Room[]{
+      return response.json().content;
+    }
     
   public intro_attractions =require("./images/intro_attractions.jpg");
   public intro_room =require("./images/intro_room.jpg");
@@ -52,24 +72,4 @@ export interface Room{
     price:string;
     links:string;
     }
-
-var ROOMS:Room[]=[{
- "id":"123465",
-  "roomNumber":"4109",
-  "price": "125",
-   "links":""    
-},
-    {
- "id":"423465",
-  "roomNumber":"4110",
-  "price": "456",
-   "links":""    
-},
-    {
- "id":"853465",
-  "roomNumber":"4111",
-  "price": "250",
-   "links":""    
-}]
-
 
