@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import {HttpClient,Response} from '@angular/http';
-import {Observable} from 'rxjs/Rx';
+import {Http,Response} from '@angular/http';
+//import {Observable} from 'rxjs/Rx';
+import { map } from 'rxjs/operators';
+import { HttpService } from './http.service';
+
 
 
 
@@ -12,8 +15,9 @@ import {Observable} from 'rxjs/Rx';
   '../../node_modules/bootstrap/dist/css/bootstrap.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private http:HttpClient){
+  constructor(private service:HttpService){
       } 
+
   private baseUrl:string   = 'http://localhost:8080';    
   public submitted:boolean;      
   roomsearch:FormGroup;
@@ -25,7 +29,7 @@ export class AppComponent implements OnInit {
        });
        
    }
-    onSubmit({value,valid}: {value:Roomsearch, valid:boolean}){
+    onSubmit({value}: {value:Roomsearch}){
      this.getAll().subscribe(rooms=>this.rooms=rooms,
      err=>{
          console.log(err);
@@ -36,9 +40,11 @@ export class AppComponent implements OnInit {
      console.log(value);   
     }
     
-    getAll():Observable<Room[]>{
-      return this.http.get(this.baseUrl+'/room/reservation/v1?checkin=2017-03-01&checkout=2017-03-08').map(this.mapRoom);
-          
+    getAll(){
+      //this.mapRoom(this.http.get(this.baseUrl+'/room/reservation/v1?checkin=2017-03-01&checkout=2017-03-08').pipe(map((res:Response)=>res.json())));
+      //return this.http.get(this.baseUrl+'/room/reservation/v1?checkin=2017-03-01&checkout=2017-03-08').pipe(map((res:Response)=>res.json()));
+      console.log(this.service.getData());
+       return this.service.getData();   
     }
     
     mapRoom(response:Response):Room[]{

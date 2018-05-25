@@ -2,9 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule,  ReactiveFormsModule} from '@angular/forms'
 import { AppComponent } from './app.component';
-import {HttpClientModule} from'@angular/http';
+import {HttpModule} from'@angular/http';
+import {HttpService} from './http.service';
 
-declare var require: NodeRequire;
+//declare var require: NodeRequire;
 @NgModule({
   declarations: [
     AppComponent
@@ -12,10 +13,10 @@ declare var require: NodeRequire;
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule,
+    HttpModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -41,7 +41,7 @@ public class ReservationResoure {
 	ReservationRepository reservationRepository;
 	@Autowired
 	ConversionService conversionService;
-    @RequestMapping(path = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(path = "",method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Page<ReservableResponse> getAvailableRooms(
             @RequestParam(name = "checkin")
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
